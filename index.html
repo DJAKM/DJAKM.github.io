@@ -21,6 +21,8 @@
     --faint: #5b6577;
     --accent: #f97316;
     --accent-soft: #fdba74;
+    --accent-text: #fdba74;
+    --on-accent: #fff;
     --accent-dim: rgba(249,115,22,.12);
     --glass: rgba(10,13,20,.85);
     --glass-card: rgba(19,26,40,.7);
@@ -37,6 +39,7 @@
     --muted: #5a6474;
     --faint: #8a94a6;
     --accent-dim: rgba(249,115,22,.1);
+    --accent-text: #c2410c;
     --glass: rgba(246,247,249,.85);
     --glass-card: rgba(255,255,255,.8);
   }
@@ -57,7 +60,7 @@
   #spotlight {
     position: fixed; inset: 0; z-index: 1; pointer-events: none;
     background: radial-gradient(560px circle at var(--sx, 50%) var(--sy, 30%),
-      rgba(249,115,22,.055), transparent 70%);
+      color-mix(in srgb, var(--accent) 6%, transparent), transparent 70%);
   }
   main, header, footer, nav { position: relative; z-index: 2; }
 
@@ -99,7 +102,7 @@
     padding: .35rem .95rem; border-radius: 999px;
   }
   .nav-cta::after { display: none; }
-  .nav-cta:hover { background: var(--accent); color: #fff !important; }
+  .nav-cta:hover { background: var(--accent); color: var(--on-accent) !important; }
 
   /* theme toggle */
   #themeBtn {
@@ -111,6 +114,27 @@
   }
   #themeBtn:hover { border-color: var(--accent); background: var(--accent-dim); transform: rotate(40deg); }
   .nav-right { display: flex; align-items: center; gap: .9rem; }
+  .picker { position: relative; }
+  #themeMenu {
+    position: absolute; top: calc(100% + 14px); right: 0; z-index: 150;
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 1rem; box-shadow: 0 18px 44px rgba(0,0,0,.35);
+    display: grid; grid-template-columns: repeat(4, 38px); gap: .65rem;
+    opacity: 0; pointer-events: none; transform: translateY(-8px);
+    transition: opacity .25s, transform .25s;
+  }
+  #themeMenu.open { opacity: 1; pointer-events: auto; transform: none; }
+  #themeMenu .menu-title {
+    grid-column: 1 / -1; font-family: var(--mono); font-size: .68rem;
+    letter-spacing: .08em; color: var(--faint); text-transform: uppercase;
+  }
+  .swatch {
+    width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--border); padding: 0;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .swatch:hover { transform: scale(1.16); border-color: var(--border-hi); }
+  .swatch.active { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
 
   /* hamburger */
   #burger {
@@ -145,7 +169,7 @@
   .hero-glow {
     position: absolute; top: 12%; right: -12%;
     width: 58vw; height: 58vw; max-width: 720px; max-height: 720px;
-    background: radial-gradient(circle, rgba(249,115,22,.14) 0%, transparent 65%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 65%);
     pointer-events: none; animation: pulse 7s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: .8; transform: scale(1) } 50% { opacity: 1; transform: scale(1.06) } }
@@ -202,8 +226,8 @@
     font-family: inherit;
     transition: transform .2s, box-shadow .2s, background .2s, border-color .2s, color .2s;
   }
-  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 28px rgba(249,115,22,.28); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(249,115,22,.42); }
+  .btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 30%, transparent); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px color-mix(in srgb, var(--accent) 44%, transparent); }
   .btn-ghost { border: 1px solid var(--border); color: var(--text); background: transparent; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .hero-socials { display: flex; gap: 1.4rem; margin-top: 2.6rem; }
@@ -290,7 +314,7 @@
   .service p { color: var(--muted); font-size: .88rem; }
   .service::after {
     content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-    background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(249,115,22,.09), transparent 60%);
+    background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
     transition: opacity .3s;
   }
   .service:hover::after { opacity: 1; }
@@ -310,17 +334,17 @@
     transition: box-shadow .3s;
   }
   .t-item:hover::before { box-shadow: 0 0 0 5px var(--accent-dim); }
-  .t-when { font-family: var(--mono); font-size: .8rem; color: var(--accent-soft); }
+  .t-when { font-family: var(--mono); font-size: .8rem; color: var(--accent-text); }
   .t-item h3 { font-size: 1.15rem; margin: .3rem 0 .1rem; }
   .t-org { color: var(--muted); font-size: .92rem; margin-bottom: .7rem; }
-  .t-org a { color: var(--accent-soft); text-decoration: none; }
+  .t-org a { color: var(--accent-text); text-decoration: none; }
   .t-org a:hover { text-decoration: underline; }
   .t-item ul { list-style: none; }
   .t-item li { color: var(--muted); font-size: .93rem; padding-left: 1.1rem; position: relative; margin-bottom: .4rem; }
   .t-item li::before { content: "▸"; color: var(--accent); position: absolute; left: 0; }
   .t-badge {
     display: inline-block; font-family: var(--mono); font-size: .68rem;
-    background: var(--accent-dim); color: var(--accent-soft);
+    background: var(--accent-dim); color: var(--accent-text);
     border-radius: 6px; padding: .15rem .55rem; margin-left: .6rem; vertical-align: middle;
   }
 
@@ -333,18 +357,18 @@
     transition: border-color .3s, transform .3s, box-shadow .3s;
   }
   .project-featured:hover {
-    border-color: rgba(249,115,22,.5); transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent); transform: translateY(-3px);
     box-shadow: 0 24px 60px rgba(0,0,0,.35);
   }
   .project-featured::after {
     content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-    background: radial-gradient(500px circle at var(--mx, 70%) var(--my, 30%), rgba(249,115,22,.1), transparent 60%);
+    background: radial-gradient(500px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%);
     transition: opacity .3s;
   }
   .project-featured:hover::after { opacity: 1; }
   .badge {
     display: inline-block; font-family: var(--mono); font-size: .72rem;
-    color: var(--accent); border: 1px solid rgba(249,115,22,.4);
+    color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
     padding: .15rem .6rem; border-radius: 999px; margin-bottom: .9rem;
   }
   .project-featured h3 { font-size: 1.55rem; margin-bottom: .6rem; }
@@ -370,10 +394,10 @@
     display: flex; flex-direction: column; transform-style: preserve-3d; will-change: transform;
     position: relative; overflow: hidden;
   }
-  .project-card:hover { border-color: rgba(249,115,22,.5); box-shadow: 0 20px 44px rgba(0,0,0,.3); }
+  .project-card:hover { border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: 0 20px 44px rgba(0,0,0,.3); }
   .project-card::after {
     content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(249,115,22,.08), transparent 60%);
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%);
     transition: opacity .3s;
   }
   .project-card:hover::after { opacity: 1; }
@@ -383,15 +407,9 @@
   .project-card p { color: var(--muted); font-size: .9rem; flex: 1; margin-bottom: 1rem; }
   .tags { display: flex; flex-wrap: wrap; gap: .45rem; }
   .tags span {
-    font-family: var(--mono); font-size: .7rem; color: var(--accent-soft);
+    font-family: var(--mono); font-size: .7rem; color: var(--accent-text);
     background: var(--accent-dim); border-radius: 6px; padding: .2rem .55rem;
   }
-  :root[data-theme="light"] .tags span { color: #c2410c; }
-  :root[data-theme="light"] .t-when,
-  :root[data-theme="light"] .edu-when,
-  :root[data-theme="light"] .t-badge,
-  :root[data-theme="light"] .t-org a,
-  :root[data-theme="light"] .pill.now { color: #c2410c; }
   :root[data-theme="light"] .pill.done { color: #15803d; }
   :root[data-theme="light"] .hero-grid { opacity: .5; }
 
@@ -443,7 +461,7 @@
     font-family: var(--mono); font-size: .65rem; padding: .2rem .6rem; border-radius: 999px;
   }
   .pill.done { background: rgba(34,197,94,.12); color: #4ade80; }
-  .pill.now { background: var(--accent-dim); color: var(--accent-soft); animation: nowpulse 2.2s ease-in-out infinite; }
+  .pill.now { background: var(--accent-dim); color: var(--accent-text); animation: nowpulse 2.2s ease-in-out infinite; }
   .pill.next { background: rgba(139,148,166,.1); color: var(--faint); }
   @keyframes nowpulse { 0%,100% { opacity: 1 } 50% { opacity: .55 } }
 
@@ -454,7 +472,7 @@
     padding: 1.8rem; transition: border-color .3s, transform .3s;
   }
   .edu-card:hover { border-color: var(--border-hi); transform: translateY(-3px); }
-  .edu-when { font-family: var(--mono); font-size: .75rem; color: var(--accent-soft); }
+  .edu-when { font-family: var(--mono); font-size: .75rem; color: var(--accent-text); }
   .edu-card h3 { font-size: 1.05rem; margin: .4rem 0 .2rem; }
   .edu-card .deg { color: var(--muted); font-size: .88rem; margin-bottom: .6rem; }
   .edu-card .score {
@@ -517,9 +535,17 @@
   }
 </style>
 <script>
-  /* set theme before first paint to avoid flash.
-     Theme is controlled ONLY by the UI toggle — dark by default, never the OS setting. */
-  document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  /* restore theme before first paint to avoid flash.
+     Theme is controlled ONLY by the UI picker — Black·Orange by default, never the OS setting. */
+  (function () {
+    try {
+      const saved = JSON.parse(localStorage.getItem("themeState") || "null");
+      document.documentElement.dataset.theme = (saved && saved.mode) || "dark";
+      if (saved && saved.vars) {
+        for (const k in saved.vars) document.documentElement.style.setProperty(k, saved.vars[k]);
+      }
+    } catch { document.documentElement.dataset.theme = "dark"; }
+  })();
 </script>
 </head>
 <body>
@@ -538,7 +564,10 @@
     <li><a class="nav-cta" href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <button id="themeBtn" aria-label="Toggle theme" title="Toggle theme">☾</button>
+    <div class="picker">
+      <button id="themeBtn" aria-label="Choose theme" title="Choose theme">◐</button>
+      <div id="themeMenu" role="menu"></div>
+    </div>
     <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -855,32 +884,104 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isTouch = matchMedia("(hover: none)").matches;
 
-  /* ---------- theme toggle ---------- */
-  const themeBtn = document.getElementById("themeBtn");
-  function applyThemeIcon() {
-    themeBtn.textContent = document.documentElement.dataset.theme === "light" ? "☀" : "☾";
+  /* ---------- theme picker ---------- */
+  const THEMES = {
+    "black-orange": { label: "Black · Orange", mode: "dark",  accent: "#f97316", soft: "#fdba74", on: "#fff" },
+    "black-red":    { label: "Black · Red",    mode: "dark",  accent: "#ef4444", soft: "#fca5a5", on: "#fff" },
+    "black-yellow": { label: "Black · Yellow", mode: "dark",  accent: "#eab308", soft: "#fde047", on: "#201a02" },
+    "black-green":  { label: "Black · Green",  mode: "dark",  accent: "#22c55e", soft: "#86efac", on: "#04250f" },
+    "black-cyan":   { label: "Black · Cyan",   mode: "dark",  accent: "#22d3ee", soft: "#a5f3fc", on: "#083344" },
+    "black-purple": { label: "Black · Purple", mode: "dark",  accent: "#8b5cf6", soft: "#c4b5fd", on: "#fff" },
+    "black-pink":   { label: "Black · Pink",   mode: "dark",  accent: "#ec4899", soft: "#f9a8d4", on: "#fff" },
+    "blue-red":     { label: "Blue · Red",     mode: "dark",  accent: "#ef4444", soft: "#fca5a5", on: "#fff",
+      vars: { "--bg": "#0a1128", "--bg-soft": "#0d1633", "--card": "#121d42", "--card-hi": "#17244f", "--border": "#1f2c5c", "--border-hi": "#2e3f7a" } },
+    "navy-gold":    { label: "Navy · Gold",    mode: "dark",  accent: "#f59e0b", soft: "#fcd34d", on: "#221903",
+      vars: { "--bg": "#0b1c33", "--bg-soft": "#0e2240", "--card": "#132a4d", "--card-hi": "#18325a", "--border": "#1f3a66", "--border-hi": "#2d4e85" } },
+    "coffee-cream": { label: "Coffee · Cream", mode: "dark",  accent: "#d4a373", soft: "#e6ccb2", on: "#2a1c0d",
+      vars: { "--bg": "#151009", "--bg-soft": "#1b150d", "--card": "#221a11", "--card-hi": "#2a2015", "--border": "#33271a", "--border-hi": "#4a3826" } },
+    "white-orange": { label: "White · Orange", mode: "light", accent: "#f97316", soft: "#fdba74", on: "#fff", text: "#c2410c" },
+    "green-white":  { label: "White · Green",  mode: "light", accent: "#16a34a", soft: "#4ade80", on: "#fff", text: "#15803d" },
+    "white-blue":   { label: "White · Blue",   mode: "light", accent: "#2563eb", soft: "#60a5fa", on: "#fff", text: "#1d4ed8" },
+    "white-purple": { label: "White · Purple", mode: "light", accent: "#7c3aed", soft: "#a78bfa", on: "#fff", text: "#6d28d9" },
+    "pink-green":   { label: "Pink · Green",   mode: "light", accent: "#16a34a", soft: "#4ade80", on: "#fff", text: "#15803d",
+      vars: { "--bg": "#fdf2f8", "--bg-soft": "#fce7f3", "--card": "#ffffff", "--card-hi": "#fdf2f8", "--border": "#f3d3e3", "--border-hi": "#e9b8d2" } },
+    "white-teal":   { label: "White · Teal",   mode: "light", accent: "#0d9488", soft: "#2dd4bf", on: "#fff", text: "#0f766e" }
+  };
+  const BASE_VARS = ["--bg", "--bg-soft", "--card", "--card-hi", "--border", "--border-hi"];
+  let themeKey = localStorage.getItem("themeKey");
+  if (!THEMES[themeKey]) themeKey = "black-orange";
+  let netColors;
+
+  function hexToRgb(hex) {
+    const n = parseInt(hex.slice(1), 16);
+    return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
   }
-  applyThemeIcon();
-  themeBtn.addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("theme", next);
-    applyThemeIcon();
+
+  function applyTheme(key) {
+    const t = THEMES[key] || THEMES["black-orange"];
+    themeKey = key;
+    const root = document.documentElement;
+    BASE_VARS.forEach(v => root.style.removeProperty(v));
+    root.dataset.theme = t.mode;
+    const vars = Object.assign({
+      "--accent": t.accent,
+      "--accent-soft": t.soft,
+      "--on-accent": t.on,
+      "--accent-text": t.mode === "light" ? (t.text || t.accent) : t.soft,
+      "--accent-dim": `rgba(${hexToRgb(t.accent)},.12)`
+    }, t.vars || {});
+    for (const k in vars) root.style.setProperty(k, vars[k]);
+    localStorage.setItem("themeKey", key);
+    localStorage.setItem("themeState", JSON.stringify({ mode: t.mode, vars }));
     netRecolor();
+    document.querySelectorAll(".swatch").forEach(s => s.classList.toggle("active", s.dataset.key === themeKey));
+  }
+
+  /* build the picker menu */
+  const themeBtn = document.getElementById("themeBtn");
+  const themeMenu = document.getElementById("themeMenu");
+  {
+    const title = document.createElement("span");
+    title.className = "menu-title";
+    title.textContent = "Pick a theme";
+    themeMenu.appendChild(title);
+    for (const [key, t] of Object.entries(THEMES)) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "swatch";
+      b.dataset.key = key;
+      b.title = t.label;
+      b.setAttribute("aria-label", t.label);
+      const bgc = (t.vars && t.vars["--bg"]) || (t.mode === "light" ? "#f6f7f9" : "#0a0d14");
+      b.style.background = `linear-gradient(135deg, ${bgc} 50%, ${t.accent} 50%)`;
+      b.addEventListener("click", () => applyTheme(key));
+      themeMenu.appendChild(b);
+    }
+  }
+  themeBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    themeMenu.classList.toggle("open");
   });
+  addEventListener("click", e => {
+    if (!themeMenu.contains(e.target)) themeMenu.classList.remove("open");
+  });
+  addEventListener("keydown", e => { if (e.key === "Escape") themeMenu.classList.remove("open"); });
+  applyTheme(themeKey);
 
   /* ---------- interactive particle background (hero) ---------- */
   const canvas = document.getElementById("net");
   const ctx = canvas.getContext("2d");
-  let W, H, particles = [], netColors;
+  let W, H, particles = [];
   const mouse = { x: -9999, y: -9999 };
 
   function netRecolor() {
-    const light = document.documentElement.dataset.theme === "light";
+    const t = THEMES[themeKey] || THEMES["black-orange"];
+    const light = t.mode === "light";
+    const a = hexToRgb(t.accent), s = hexToRgb(t.soft);
     netColors = {
-      dot: light ? "rgba(249,115,22,.45)" : "rgba(253,186,116,.5)",
-      line: light ? "23,32,47" : "253,186,116",
-      lineToMouse: "249,115,22"
+      dot: light ? `rgba(${a},.45)` : `rgba(${s},.5)`,
+      line: light ? "23,32,47" : s,
+      lineToMouse: a
     };
   }
   netRecolor();

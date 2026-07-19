@@ -5,6 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aditya Kumar Mishra — Frontend Developer</title>
 <meta name="description" content="Aditya Kumar Mishra — Frontend Developer building fast, responsive web experiences with React, Next.js, and Tailwind CSS. Designed UniversityLane.io end-to-end.">
+<meta name="theme-color" content="#0a0d14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aditya Kumar Mishra — Frontend Developer">
+<meta property="og:description" content="Frontend Developer at Makunai Global. Designed UniversityLane.io end-to-end — React, Next.js, Tailwind CSS.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aditya Kumar Mishra — Frontend Developer">
+<meta name="twitter:description" content="Frontend Developer at Makunai Global. Designed UniversityLane.io end-to-end — React, Next.js, Tailwind CSS.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23f97316'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' text-anchor='middle' fill='white'%3EA%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aditya Kumar Mishra",
+  "jobTitle": "Frontend Developer",
+  "worksFor": { "@type": "Organization", "name": "Makunai Global" },
+  "alumniOf": "Indian Institute of Information Technology, Bhagalpur",
+  "email": "mailto:adityakmishradeos@gmail.com",
+  "sameAs": [
+    "https://github.com/DJAKM",
+    "https://www.linkedin.com/in/aditya-mishra-5067b6237/"
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -24,6 +47,8 @@
     --accent-text: #fdba74;
     --on-accent: #fff;
     --accent-dim: rgba(249,115,22,.12);
+    --accent-2: #a78bfa;
+    --accent-2-text: #a78bfa;
     --glass: rgba(10,13,20,.85);
     --glass-card: rgba(19,26,40,.7);
     --mono: "JetBrains Mono", monospace;
@@ -67,7 +92,7 @@
   /* ---------- scroll progress ---------- */
   #progress {
     position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
     z-index: 200; border-radius: 0 3px 3px 0;
   }
 
@@ -173,6 +198,12 @@
     pointer-events: none; animation: pulse 7s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: .8; transform: scale(1) } 50% { opacity: 1; transform: scale(1.06) } }
+  .hero-glow2 {
+    position: absolute; bottom: -18%; left: -14%;
+    width: 46vw; height: 46vw; max-width: 560px; max-height: 560px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent-2) 12%, transparent) 0%, transparent 65%);
+    pointer-events: none; animation: pulse 9s ease-in-out infinite reverse;
+  }
   #net {
     position: absolute; inset: 0; pointer-events: none; width: 100%; height: 100%;
   }
@@ -203,7 +234,7 @@
     font-weight: 800; line-height: 1.06; letter-spacing: -.02em;
   }
   h1 .grad {
-    background: linear-gradient(100deg, var(--accent) 10%, var(--accent-soft) 50%, var(--accent) 90%);
+    background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 50%, var(--accent) 90%);
     background-size: 200% auto;
     -webkit-background-clip: text; background-clip: text; color: transparent;
     animation: shine 5s linear infinite;
@@ -260,12 +291,12 @@
     font-family: var(--mono); font-size: .9rem; color: var(--faint);
     display: flex; align-items: center; gap: .8rem; white-space: nowrap;
   }
-  .marquee-track span::before { content: "◆"; color: var(--accent); font-size: .6rem; }
+  .marquee-track span::before { content: "◆"; color: var(--accent-2); font-size: .6rem; }
 
   /* ---------- sections ---------- */
   section { padding: 6.5rem 6vw; max-width: 1120px; margin: 0 auto; }
   .section-label {
-    font-family: var(--mono); color: var(--accent); font-size: .85rem;
+    font-family: var(--mono); color: var(--accent-2-text); font-size: .85rem;
     letter-spacing: .08em; text-transform: uppercase;
   }
   h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 700; margin: .5rem 0 2.4rem; }
@@ -295,6 +326,7 @@
   }
   .stat:hover { border-color: var(--accent); transform: translateY(-3px); }
   .stat b { display: block; font-size: 1.8rem; color: var(--accent); font-weight: 700; font-family: var(--mono); }
+  .stat:nth-child(even) b { color: var(--accent-2-text); }
   .stat span { font-size: .78rem; color: var(--muted); }
 
   /* ---------- services ---------- */
@@ -323,7 +355,7 @@
   .timeline { position: relative; padding-left: 2rem; }
   .timeline::before {
     content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
-    width: 2px; background: linear-gradient(var(--accent), var(--border));
+    width: 2px; background: linear-gradient(var(--accent), var(--accent-2));
   }
   .t-item { position: relative; padding-bottom: 2.8rem; }
   .t-item:last-child { padding-bottom: 0; }
@@ -407,8 +439,9 @@
   .project-card p { color: var(--muted); font-size: .9rem; flex: 1; margin-bottom: 1rem; }
   .tags { display: flex; flex-wrap: wrap; gap: .45rem; }
   .tags span {
-    font-family: var(--mono); font-size: .7rem; color: var(--accent-text);
-    background: var(--accent-dim); border-radius: 6px; padding: .2rem .55rem;
+    font-family: var(--mono); font-size: .7rem; color: var(--accent-2-text);
+    background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+    border-radius: 6px; padding: .2rem .55rem;
   }
   :root[data-theme="light"] .pill.done { color: #15803d; }
   :root[data-theme="light"] .hero-grid { opacity: .5; }
@@ -585,6 +618,7 @@
   <canvas id="net" aria-hidden="true"></canvas>
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
   <span class="avail"><i></i>Open to opportunities · Noida, India</span>
   <p class="kicker">Hi, my name is</p>
   <h1>Aditya Kumar <span class="grad">Mishra</span>.</h1>
@@ -885,31 +919,32 @@
   const isTouch = matchMedia("(hover: none)").matches;
 
   /* ---------- theme picker ---------- */
+  const NAVY = { "--bg": "#0a1128", "--bg-soft": "#0d1633", "--card": "#121d42", "--card-hi": "#17244f", "--border": "#1f2c5c", "--border-hi": "#2e3f7a" };
   const THEMES = {
-    "black-orange": { label: "Black · Orange", mode: "dark",  accent: "#f97316", soft: "#fdba74", on: "#fff" },
-    "black-red":    { label: "Black · Red",    mode: "dark",  accent: "#ef4444", soft: "#fca5a5", on: "#fff" },
-    "black-yellow": { label: "Black · Yellow", mode: "dark",  accent: "#eab308", soft: "#fde047", on: "#201a02" },
-    "black-green":  { label: "Black · Green",  mode: "dark",  accent: "#22c55e", soft: "#86efac", on: "#04250f" },
-    "black-cyan":   { label: "Black · Cyan",   mode: "dark",  accent: "#22d3ee", soft: "#a5f3fc", on: "#083344" },
-    "black-purple": { label: "Black · Purple", mode: "dark",  accent: "#8b5cf6", soft: "#c4b5fd", on: "#fff" },
-    "black-pink":   { label: "Black · Pink",   mode: "dark",  accent: "#ec4899", soft: "#f9a8d4", on: "#fff" },
-    "blue-red":     { label: "Blue · Red",     mode: "dark",  accent: "#ef4444", soft: "#fca5a5", on: "#fff",
-      vars: { "--bg": "#0a1128", "--bg-soft": "#0d1633", "--card": "#121d42", "--card-hi": "#17244f", "--border": "#1f2c5c", "--border-hi": "#2e3f7a" } },
-    "navy-gold":    { label: "Navy · Gold",    mode: "dark",  accent: "#f59e0b", soft: "#fcd34d", on: "#221903",
+    "ember-violet":   { label: "Ember & Violet",         mode: "dark",  accent: "#f97316", soft: "#fdba74", on: "#fff",    accent2: "#a78bfa" },
+    "yellow-blue":    { label: "Yellow & Blue",          mode: "dark",  accent: "#facc15", soft: "#fde047", on: "#1f1a02", accent2: "#60a5fa", vars: NAVY },
+    "pink-emerald":   { label: "Pink & Emerald",         mode: "dark",  accent: "#ec4899", soft: "#f9a8d4", on: "#fff",    accent2: "#4ade80" },
+    "magenta-maroon": { label: "Magenta & Maroon",       mode: "dark",  accent: "#d946ef", soft: "#f0abfc", on: "#fff",    accent2: "#fb7185",
+      vars: { "--bg": "#1a0a12", "--bg-soft": "#200d17", "--card": "#2a1120", "--card-hi": "#33162a", "--border": "#3d1a30", "--border-hi": "#57254a" } },
+    "teal-coral":     { label: "Teal & Coral",           mode: "dark",  accent: "#2dd4bf", soft: "#99f6e4", on: "#042f2a", accent2: "#fb7185" },
+    "cyan-magenta":   { label: "Cyan & Magenta",         mode: "dark",  accent: "#22d3ee", soft: "#a5f3fc", on: "#083344", accent2: "#e879f9" },
+    "red-gold":       { label: "Red & Gold",             mode: "dark",  accent: "#ef4444", soft: "#fca5a5", on: "#fff",    accent2: "#fbbf24" },
+    "emerald-lime":   { label: "Emerald & Lime",         mode: "dark",  accent: "#10b981", soft: "#6ee7b7", on: "#022c22", accent2: "#a3e635" },
+    "blue-pink":      { label: "Blue & Pink",            mode: "dark",  accent: "#3b82f6", soft: "#93c5fd", on: "#fff",    accent2: "#f472b6" },
+    "navy-gold-sky":  { label: "Gold & Sky on Navy",     mode: "dark",  accent: "#f59e0b", soft: "#fcd34d", on: "#221903", accent2: "#38bdf8",
       vars: { "--bg": "#0b1c33", "--bg-soft": "#0e2240", "--card": "#132a4d", "--card-hi": "#18325a", "--border": "#1f3a66", "--border-hi": "#2d4e85" } },
-    "coffee-cream": { label: "Coffee · Cream", mode: "dark",  accent: "#d4a373", soft: "#e6ccb2", on: "#2a1c0d",
-      vars: { "--bg": "#151009", "--bg-soft": "#1b150d", "--card": "#221a11", "--card-hi": "#2a2015", "--border": "#33271a", "--border-hi": "#4a3826" } },
-    "white-orange": { label: "White · Orange", mode: "light", accent: "#f97316", soft: "#fdba74", on: "#fff", text: "#c2410c" },
-    "green-white":  { label: "White · Green",  mode: "light", accent: "#16a34a", soft: "#4ade80", on: "#fff", text: "#15803d" },
-    "white-blue":   { label: "White · Blue",   mode: "light", accent: "#2563eb", soft: "#60a5fa", on: "#fff", text: "#1d4ed8" },
-    "white-purple": { label: "White · Purple", mode: "light", accent: "#7c3aed", soft: "#a78bfa", on: "#fff", text: "#6d28d9" },
-    "pink-green":   { label: "Pink · Green",   mode: "light", accent: "#16a34a", soft: "#4ade80", on: "#fff", text: "#15803d",
+    "coral-teal":     { label: "Coral & Teal (Light)",   mode: "light", accent: "#f97316", soft: "#fdba74", on: "#fff", text: "#c2410c", accent2: "#0d9488", text2: "#0f766e" },
+    "indigo-amber":   { label: "Indigo & Amber (Light)", mode: "light", accent: "#4f46e5", soft: "#818cf8", on: "#fff", text: "#4338ca", accent2: "#d97706", text2: "#b45309" },
+    "blush-green":    { label: "Blush & Green (Light)",  mode: "light", accent: "#16a34a", soft: "#4ade80", on: "#fff", text: "#15803d", accent2: "#db2777", text2: "#be185d",
       vars: { "--bg": "#fdf2f8", "--bg-soft": "#fce7f3", "--card": "#ffffff", "--card-hi": "#fdf2f8", "--border": "#f3d3e3", "--border-hi": "#e9b8d2" } },
-    "white-teal":   { label: "White · Teal",   mode: "light", accent: "#0d9488", soft: "#2dd4bf", on: "#fff", text: "#0f766e" }
+    "blue-orange":    { label: "Blue & Orange (Light)",  mode: "light", accent: "#2563eb", soft: "#60a5fa", on: "#fff", text: "#1d4ed8", accent2: "#ea580c", text2: "#c2410c" },
+    "violet-green":   { label: "Violet & Green (Light)", mode: "light", accent: "#7c3aed", soft: "#a78bfa", on: "#fff", text: "#6d28d9", accent2: "#16a34a", text2: "#15803d" },
+    "teal-rose":      { label: "Teal & Rose (Light)",    mode: "light", accent: "#0d9488", soft: "#2dd4bf", on: "#fff", text: "#0f766e", accent2: "#e11d48", text2: "#be123c" }
   };
+  const DEFAULT_THEME = "ember-violet";
   const BASE_VARS = ["--bg", "--bg-soft", "--card", "--card-hi", "--border", "--border-hi"];
   let themeKey = localStorage.getItem("themeKey");
-  if (!THEMES[themeKey]) themeKey = "black-orange";
+  if (!THEMES[themeKey]) themeKey = DEFAULT_THEME;
   let netColors;
 
   function hexToRgb(hex) {
@@ -918,7 +953,7 @@
   }
 
   function applyTheme(key) {
-    const t = THEMES[key] || THEMES["black-orange"];
+    const t = THEMES[key] || THEMES[DEFAULT_THEME];
     themeKey = key;
     const root = document.documentElement;
     BASE_VARS.forEach(v => root.style.removeProperty(v));
@@ -928,7 +963,9 @@
       "--accent-soft": t.soft,
       "--on-accent": t.on,
       "--accent-text": t.mode === "light" ? (t.text || t.accent) : t.soft,
-      "--accent-dim": `rgba(${hexToRgb(t.accent)},.12)`
+      "--accent-dim": `rgba(${hexToRgb(t.accent)},.12)`,
+      "--accent-2": t.accent2,
+      "--accent-2-text": t.mode === "light" ? (t.text2 || t.accent2) : t.accent2
     }, t.vars || {});
     for (const k in vars) root.style.setProperty(k, vars[k]);
     localStorage.setItem("themeKey", key);
@@ -953,7 +990,7 @@
       b.title = t.label;
       b.setAttribute("aria-label", t.label);
       const bgc = (t.vars && t.vars["--bg"]) || (t.mode === "light" ? "#f6f7f9" : "#0a0d14");
-      b.style.background = `linear-gradient(135deg, ${bgc} 50%, ${t.accent} 50%)`;
+      b.style.background = `linear-gradient(135deg, ${bgc} 0 44%, ${t.accent} 44% 72%, ${t.accent2} 72%)`;
       b.addEventListener("click", () => applyTheme(key));
       themeMenu.appendChild(b);
     }
@@ -975,12 +1012,12 @@
   const mouse = { x: -9999, y: -9999 };
 
   function netRecolor() {
-    const t = THEMES[themeKey] || THEMES["black-orange"];
+    const t = THEMES[themeKey] || THEMES[DEFAULT_THEME];
     const light = t.mode === "light";
-    const a = hexToRgb(t.accent), s = hexToRgb(t.soft);
+    const a = hexToRgb(t.accent), a2 = hexToRgb(t.accent2);
     netColors = {
-      dot: light ? `rgba(${a},.45)` : `rgba(${s},.5)`,
-      line: light ? "23,32,47" : s,
+      dot: light ? `rgba(${a},.45)` : `rgba(${hexToRgb(t.soft)},.5)`,
+      line: a2,
       lineToMouse: a
     };
   }
@@ -1037,14 +1074,30 @@
     requestAnimationFrame(netTick);
   }
   if (!reduceMotion) {
+    /* the animation loop only runs while the hero is actually on screen */
+    let netRunning = false, netVisible = false, resizeTimer;
+    const baseTick = netTick;
+    netTick = function guardedTick() {
+      if (!netVisible) { netRunning = false; return; }
+      baseTick();
+    };
+    function startNet() {
+      if (!netRunning && netVisible) { netRunning = true; requestAnimationFrame(netTick); }
+    }
     netResize();
-    addEventListener("resize", netResize, { passive: true });
+    new IntersectionObserver(entries => {
+      netVisible = entries[0].isIntersecting;
+      startNet();
+    }).observe(canvas.parentElement);
+    addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(netResize, 150);
+    }, { passive: true });
     canvas.parentElement.addEventListener("pointermove", e => {
       const r = canvas.getBoundingClientRect();
       mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
     }, { passive: true });
     canvas.parentElement.addEventListener("pointerleave", () => { mouse.x = -9999; mouse.y = -9999; });
-    requestAnimationFrame(netTick);
   }
 
   /* nav scroll state + progress bar + back-to-top */
@@ -1072,12 +1125,19 @@
     document.body.style.overflow = "";
   }));
 
-  /* cursor spotlight */
+  /* cursor spotlight — writes batched to one style update per frame */
   if (!isTouch && !reduceMotion) {
     const spot = document.getElementById("spotlight");
+    let sx = 0, sy = 0, spotQueued = false;
     addEventListener("pointermove", e => {
-      spot.style.setProperty("--sx", e.clientX + "px");
-      spot.style.setProperty("--sy", e.clientY + "px");
+      sx = e.clientX; sy = e.clientY;
+      if (spotQueued) return;
+      spotQueued = true;
+      requestAnimationFrame(() => {
+        spot.style.setProperty("--sx", sx + "px");
+        spot.style.setProperty("--sy", sy + "px");
+        spotQueued = false;
+      });
     }, { passive: true });
   }
 

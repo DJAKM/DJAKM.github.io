@@ -1,0 +1,178 @@
+%-------------------------------------------------------------------------------
+% Aditya Kumar Mishra — Frontend Developer Resume
+% ATS-optimized: single column, standard section titles, machine-readable text,
+% no images/graphics/text-boxes. Compile with pdfLaTeX (works on Overleaf).
+%-------------------------------------------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure PDF is machine readable (critical for ATS parsing)
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Aditya Kumar Mishra} \\ \vspace{1pt}
+    \small +91 9454222828 $|$ \href{mailto:adityakmishradeos@gmail.com}{\underline{adityakmishradeos@gmail.com}} $|$
+    \href{https://www.linkedin.com/in/aditya-kumar-mishra}{\underline{LinkedIn}} $|$
+    \href{https://github.com/DJAKM}{\underline{GitHub}}
+\end{center}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Frontend Developer}{July 2025 -- Present}
+      {Makunai Global}{Noida, India (On-site)}
+      \resumeItemListStart
+        \resumeItem{Designed and developed the frontend of \href{https://universitylane.io}{\underline{UniversityLane.io}} end-to-end --- the company's flagship study-abroad and MBBS-abroad platform serving 1,000+ certified partners and 5,000+ processed student applications}
+        \resumeItem{Owned the complete UI/UX from concept to production: landing experience, destinations navigation covering 20+ countries, university and program discovery cards, and testimonial/program carousels}
+        \resumeItem{Built a multi-step budget calculator enabling students to estimate tuition, accommodation, travel, and visa costs with instant results}
+        \resumeItem{Developed partner onboarding, registration, login, and enquiry flows with client-side form validation}
+        \resumeItem{Implemented fully responsive layouts across the platform using Tailwind CSS and shadcn/ui, ensuring consistent experience from mobile to desktop}
+        \resumeItem{Integrated RESTful APIs for dynamic university, program, and lead data with Redux-based state management}
+        \resumeItem{Promoted from intern to full-time Frontend Developer within six months}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Frontend Intern}{January 2025 -- June 2025}
+      {Makunai Global}{Remote}
+      \resumeItemListStart
+        \resumeItem{Developed user interface components for UNILANE, a platform helping students get enrolled in foreign universities}
+        \resumeItem{Built responsive and interactive UI components using the Next.js framework and modern React patterns}
+        \resumeItem{Integrated RESTful APIs to fetch and display dynamic student and university data}
+        \resumeItem{Implemented state management using Redux for efficient data flow across components}
+        \resumeItem{Collaborated with cross-functional teams to deliver high-quality features within tight deadlines}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: JavaScript (ES6+), TypeScript, C, C++} \\
+     \textbf{Frontend}{: React.js, Next.js (App Router), HTML5, CSS3, Responsive Design} \\
+     \textbf{Styling \& UI}{: Tailwind CSS, shadcn/ui, Chakra UI} \\
+     \textbf{State Management}{: Redux, Context API} \\
+     \textbf{Backend Integration}{: Node.js, Express.js, RESTful APIs, Socket.io} \\
+     \textbf{Databases}{: MongoDB, Firebase, Firestore} \\
+     \textbf{Developer Tools}{: Git, GitHub, Postman} \\
+     \textbf{Currently Learning}{: Python, Django, AI/ML fundamentals}
+    }}
+ \end{itemize}
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Instagram Clone} $|$ \emph{React, Chakra UI, Firebase}}{2024}
+          \resumeItemListStart
+            \resumeItem{Built a fully responsive social media application with modern UI/UX design}
+            \resumeItem{Implemented user authentication with Firebase Auth for secure login/signup}
+            \resumeItem{Developed real-time photo upload functionality with instant likes and comments}
+            \resumeItem{Integrated Firestore for real-time data synchronization and cloud storage}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Realtime Responsive Chat App} $|$ \emph{React, Node.js, Socket.io, MongoDB}}{2024}
+          \resumeItemListStart
+            \resumeItem{Developed a real-time messaging application supporting individual and group chats}
+            \resumeItem{Implemented instant message delivery using Socket.io with a responsive React frontend}
+            \resumeItem{Integrated RESTful APIs for user authentication and chat data management}
+            \resumeItem{Designed efficient MongoDB storage for chat history and user information}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Indian Institute of Information Technology, Bhagalpur}{2021 -- 2025}
+      {Bachelor of Technology --- Electronics and Communication Engineering, CGPA: 8.00}{}
+    \resumeSubheading
+      {Heritage International Public School, Kushinagar, UP}{2020}
+      {Intermediate (CBSE), Percentage: 93.0\%}{}
+  \resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS-----------
+\section{Achievements}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Competitive Programming}{: Solved 400+ Data Structures and Algorithms problems on LeetCode, GeeksforGeeks, and Coding Ninjas} \\
+     \textbf{LeetCode Rating}{: Achieved maximum rating of 1613 on LeetCode}
+    }}
+ \end{itemize}
+
+\end{document}

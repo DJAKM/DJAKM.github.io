@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0d14;
+  --bg-soft: #0f141f;
+  --card: #131a28;
+  --card-hi: #18202f;
+  --border: #1e2939;
+  --border-hi: #2b3a52;
+  --text: #e8ecf3;
+  --muted: #8a94a6;
+  --faint: #5b6577;
+  --accent: #f97316;
+  --accent-soft: #fdba74;
+  --accent-text: #fdba74;
+  --on-accent: #fff;
+  --accent-2: #a78bfa;
+  --accent-2-text: #a78bfa;
+  --glass: rgba(10, 13, 20, 0.85);
+  --glass-card: rgba(19, 26, 40, 0.7);
+}
+:root[data-theme="light"] {
+  --bg: #f6f7f9;
+  --bg-soft: #eef0f4;
+  --card: #ffffff;
+  --card-hi: #f4f6fa;
+  --border: #e3e8ef;
+  --border-hi: #cbd5e1;
+  --text: #17202f;
+  --muted: #5a6474;
+  --faint: #8a94a6;
+  --glass: rgba(246, 247, 249, 0.85);
+  --glass-card: rgba(255, 255, 255, 0.8);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-card: var(--card);
+  --color-card-hi: var(--card-hi);
+  --color-line: var(--border);
+  --color-line-hi: var(--border-hi);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-atext: var(--accent-text);
+  --color-a2text: var(--accent-2-text);
+  --color-on-accent: var(--on-accent);
+  --color-glass: var(--glass);
+  --color-glass-card: var(--glass-card);
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background 0.35s, color 0.35s;
+}
+::selection { background: var(--accent); color: var(--on-accent); }
+html { scroll-behavior: smooth; }
+
+/* decorative pieces that are simpler as plain CSS */
+.hero-grid {
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.16;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+}
+:root[data-theme="light"] .hero-grid { opacity: 0.5; }
+
+.grad-name {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 50%, var(--accent) 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+.caret {
+  display: inline-block; width: 3px; height: 1em;
+  background: var(--accent); vertical-align: -0.15em; margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+@keyframes scrollX { to { transform: translateX(-100%); } }
+.marquee-track { animation: scrollX 30s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@keyframes ping-dot {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45); }
+  70% { box-shadow: 0 0 0 9px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+.ping-dot { animation: ping-dot 2s infinite; }
+
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+.floaty { animation: floaty 2.4s ease-in-out infinite; }
+
+.spot { position: relative; overflow: hidden; }
+.spot::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
+  transition: opacity 0.3s;
+}
+.spot:hover::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .grad-name, .caret, .ping-dot, .floaty { animation: none; }
+  html { scroll-behavior: auto; }
+}

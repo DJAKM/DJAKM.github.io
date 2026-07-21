@@ -1,7 +1,7 @@
 import { motion, useScroll, useSpring, MotionConfig } from "framer-motion"
 import { useEffect, useState } from "react"
 import { ThemeProvider, ThemePicker } from "./theme.jsx"
-import { Section, Counter, Typed, Tags, Stat, Spotlight, Particles, useSpot, staggerParent, staggerChild } from "./bits.jsx"
+import { Section, Counter, Typed, Tags, Stat, Spotlight, Particles, Cursor, useSpot, useParallax, staggerParent, staggerChild } from "./bits.jsx"
 import { NAV, MARQUEE, STATS, SERVICES, JOBS, FEATURED, PROJECTS, AI_PROJECTS, DSA_STATS, EDUCATION, LINKS } from "./data.js"
 
 const card = "rounded-2xl border border-line bg-card transition duration-300 hover:-translate-y-1"
@@ -48,14 +48,18 @@ function Nav() {
 }
 
 function Hero() {
+  const glow1 = useParallax(30)
+  const glow2 = useParallax(-24)
   return (
     <header className="relative flex min-h-screen flex-col justify-center overflow-hidden px-[6vw] pt-24 pb-16">
       <Particles />
       <div className="hero-grid pointer-events-none absolute inset-0" />
-      <div className="pointer-events-none absolute -right-[12%] top-[12%] h-[58vw] w-[58vw] max-h-[720px] max-w-[720px] rounded-full opacity-80"
-        style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 65%)" }} />
-      <div className="pointer-events-none absolute -bottom-[18%] -left-[14%] h-[46vw] w-[46vw] max-h-[560px] max-w-[560px] rounded-full"
-        style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--accent-2) 12%, transparent) 0%, transparent 65%)" }} />
+      <motion.div style={{ x: glow1.x, y: glow1.y }} className="pointer-events-none absolute -right-[12%] top-[12%] h-[58vw] w-[58vw] max-h-[720px] max-w-[720px] rounded-full opacity-80">
+        <div className="h-full w-full rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 65%)" }} />
+      </motion.div>
+      <motion.div style={{ x: glow2.x, y: glow2.y }} className="pointer-events-none absolute -bottom-[18%] -left-[14%] h-[46vw] w-[46vw] max-h-[560px] max-w-[560px] rounded-full">
+        <div className="h-full w-full rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--accent-2) 12%, transparent) 0%, transparent 65%)" }} />
+      </motion.div>
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: "easeOut" }} className="relative">
         <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-glass-card px-4 py-1.5 font-mono text-xs text-muted">
           <i className="ping-dot h-2 w-2 rounded-full bg-green-500" />Open to opportunities · Noida, India
@@ -103,7 +107,7 @@ const Marquee = () => (
 
 function About() {
   return (
-    <Section id="about" num="01" label="About" title="A frontend developer who owns the whole picture">
+    <Section id="about" num="01" label="About" title="A frontend developer who owns the whole picture" variant="left">
       <div className="grid items-start gap-12 md:grid-cols-[1.4fr_1fr]">
         <div className="space-y-4 text-muted [&_strong]:font-medium [&_strong]:text-ink">
           <p>I'm an Electronics &amp; Communication graduate from <strong>IIIT Bhagalpur (2025)</strong> who found home in frontend engineering. I joined Makunai Global as an intern in January 2025 and was promoted to a full-time Frontend Developer within six months.</p>
@@ -126,7 +130,7 @@ function About() {
 function Services() {
   const spot = useSpot()
   return (
-    <Section id="services" num="02" label="What I do" title="Where I add value">
+    <Section id="services" num="02" label="What I do" title="Where I add value" variant="scale">
       <motion.div variants={staggerParent} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid gap-6 md:grid-cols-3">
         {SERVICES.map((s, i) => (
           <motion.div key={s.title} variants={staggerChild} onPointerMove={spot} className={`spot ${card} p-7 hover:border-line-hi`}>
@@ -142,7 +146,7 @@ function Services() {
 
 function Experience() {
   return (
-    <Section id="experience" num="03" label="Experience" title="Where I've worked">
+    <Section id="experience" num="03" label="Experience" title="Where I've worked" variant="right">
       <div className="relative pl-8 before:absolute before:bottom-1.5 before:left-1.5 before:top-1.5 before:w-0.5 before:bg-gradient-to-b before:from-accent before:to-accent-2">
         {JOBS.map(j => (
           <div key={j.title} className="group relative pb-11 last:pb-0">
@@ -185,7 +189,7 @@ function ProjectCard({ p }) {
 function Work() {
   const spot = useSpot()
   return (
-    <Section id="work" num="04" label="Work" title="Things I've built">
+    <Section id="work" num="04" label="Work" title="Things I've built" variant="blur">
       <div onPointerMove={spot} className={`spot ${card} mb-6 bg-gradient-to-br from-card to-card-hi p-9 hover:border-accent/50`}>
         <span className="mb-4 inline-block rounded-full border border-accent/40 px-3 py-0.5 font-mono text-xs text-atext">FEATURED · PROFESSIONAL WORK</span>
         <h3 className="mb-2 text-2xl font-semibold"><a href={FEATURED.url} target="_blank" rel="noopener" className="transition-colors hover:text-atext">{FEATURED.name} ↗</a></h3>
@@ -225,7 +229,7 @@ function Work() {
 
 function Dsa() {
   return (
-    <Section id="dsa" num="05" label="Problem Solving" title="Sharp fundamentals, daily practice">
+    <Section id="dsa" num="05" label="Problem Solving" title="Sharp fundamentals, daily practice" variant="left">
       <div className={`relative grid items-center gap-10 overflow-hidden ${card} hover:translate-y-0 bg-gradient-to-br from-card to-card-hi p-9 md:grid-cols-[1.2fr_1fr]`}>
         <span className="pointer-events-none absolute -bottom-6 right-8 font-mono text-8xl font-semibold text-transparent" style={{ WebkitTextStroke: "1px var(--border)" }}>{"{ }"}</span>
         <div>
@@ -248,7 +252,7 @@ function Dsa() {
 
 function Education() {
   return (
-    <Section id="education" num="06" label="Education" title="Where I studied">
+    <Section id="education" num="06" label="Education" title="Where I studied" variant="rotate">
       <motion.div variants={staggerParent} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid gap-6 md:grid-cols-2">
         {EDUCATION.map(e => (
           <motion.div key={e.school} variants={staggerChild} className={`${card} p-7 hover:border-line-hi`}>
@@ -270,7 +274,7 @@ function Contact() {
     setTimeout(() => setCopied(false), 1800)
   }
   return (
-    <Section id="contact" num="07" label="Contact" title="Let's build something together" center>
+    <Section id="contact" num="07" label="Contact" title="Let's build something together" center variant="scale">
       <div className="mx-auto max-w-[640px]">
         <p className="mb-8 text-muted">Whether it's a role, a freelance project, or just a chat about frontend — my inbox is always open. I usually reply within a day.</p>
         <div className="flex flex-wrap justify-center gap-4">
@@ -320,6 +324,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <ThemeProvider>
+        <Cursor />
         <Spotlight />
         <Nav />
         <main className="relative z-[2]">

@@ -1,23 +1,96 @@
-import { motion, useInView, animate } from "framer-motion"
+import { motion, useInView, animate, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { useTheme, themeVars } from "./theme.jsx"
 import { TYPED_WORDS } from "./data.js"
 
+/* distinct entrance per section — keyed by name, falls back to fade-up */
+const ENTRANCES = {
+  up: { hidden: { opacity: 0, y: 48 }, show: { opacity: 1, y: 0 } },
+  left: { hidden: { opacity: 0, x: -60 }, show: { opacity: 1, x: 0 } },
+  right: { hidden: { opacity: 0, x: 60 }, show: { opacity: 1, x: 0 } },
+  scale: { hidden: { opacity: 0, scale: 0.92 }, show: { opacity: 1, scale: 1 } },
+  blur: { hidden: { opacity: 0, filter: "blur(14px)", y: 30 }, show: { opacity: 1, filter: "blur(0px)", y: 0 } },
+  rotate: { hidden: { opacity: 0, rotate: -3, y: 40, transformOrigin: "left" }, show: { opacity: 1, rotate: 0, y: 0 } },
+}
+
+/* the numbered header animates on its own so titles feel deliberate */
+const headVar = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+}
+
 /* section wrapper: scroll-reveal + numbered header in one place */
-export function Section({ id, num, label, title, children, center }) {
+export function Section({ id, num, label, title, children, center, variant = "up" }) {
+  const entrance = ENTRANCES[variant] || ENTRANCES.up
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial="hidden"
+      whileInView="show"
       viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      variants={entrance}
       className={`mx-auto max-w-[1120px] px-[6vw] py-16 md:py-24 ${center ? "text-center" : ""}`}
     >
-      <p className="font-mono text-sm uppercase tracking-widest text-a2text">{num} — {label}</p>
-      <h2 className="mt-2 mb-10 text-3xl md:text-4xl font-bold">{title}</h2>
+      <motion.p variants={headVar} className="font-mono text-sm uppercase tracking-widest text-a2text">{num} — {label}</motion.p>
+      <motion.h2 variants={headVar} className="mt-2 mb-10 text-3xl md:text-4xl font-bold">{title}</motion.h2>
       {children}
     </motion.section>
+  )
+}
+
+/* springy custom cursor: exact dot + trailing ring that reacts to interactive elements */
+export function Cursor() {
+  const [on, setOn] = useState(false)
+  const [active, setActive] = useState(false)
+  const [down, setDown] = useState(false)
+  const x = useMotionValue(-100)
+  const y = useMotionValue(-100)
+  const ringX = useSpring(x, { stiffness: 350, damping: 28, mass: 0.6 })
+  const ringY = useSpring(y, { stiffness: 350, damping: 28, mass: 0.6 })
+
+  useEffect(() => {
+    if (matchMedia("(hover: none)").matches || matchMedia("(pointer: coarse)").matches) return
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    setOn(true)
+    const move = e => {
+      x.set(e.clientX)
+      y.set(e.clientY)
+      const el = e.target.closest?.("a, button, input, [data-cursor]")
+      setActive(!!el)
+    }
+    const dn = () => setDown(true)
+    const up = () => setDown(false)
+    addEventListener("pointermove", move, { passive: true })
+    addEventListener("pointerdown", dn)
+    addEventListener("pointerup", up)
+    return () => {
+      removeEventListener("pointermove", move)
+      removeEventListener("pointerdown", dn)
+      removeEventListener("pointerup", up)
+    }
+  }, [x, y])
+
+  if (!on) return null
+  return (
+    <>
+      <motion.div
+        className="pointer-events-none fixed left-0 top-0 z-[300] h-2 w-2 rounded-full bg-accent"
+        style={{ x, y, translateX: "-50%", translateY: "-50%" }}
+        animate={{ scale: down ? 0.6 : 1 }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      />
+      <motion.div
+        className="pointer-events-none fixed left-0 top-0 z-[300] h-[30px] w-[30px] rounded-full border border-accent-2"
+        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
+        animate={{
+          scale: active ? 1.75 : 1,
+          opacity: active ? 1 : 0.55,
+          backgroundColor: active ? "color-mix(in srgb, var(--accent-2) 12%, transparent)" : "rgba(0,0,0,0)",
+        }}
+        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+      />
+    </>
   )
 }
 
@@ -114,6 +187,25 @@ export function Spotlight() {
   )
 }
 
+/* mouse-parallax: returns springy x/y offsets that track the pointer across the viewport.
+   strength is the max px drift; pass negative to move opposite the cursor. */
+export function useParallax(strength = 20) {
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const x = useSpring(mx, { stiffness: 60, damping: 18 })
+  const y = useSpring(my, { stiffness: 60, damping: 18 })
+  useEffect(() => {
+    if (matchMedia("(hover: none)").matches) return
+    const move = e => {
+      mx.set(((e.clientX / innerWidth) - 0.5) * 2 * strength)
+      my.set(((e.clientY / innerHeight) - 0.5) * 2 * strength)
+    }
+    addEventListener("pointermove", move, { passive: true })
+    return () => removeEventListener("pointermove", move)
+  }, [mx, my, strength])
+  return { x, y }
+}
+
 /* per-card mouse-follow glow (pairs with .spot in index.css) */
 export function useSpot() {
   return e => {
@@ -143,7 +235,8 @@ export function Particles() {
     const canvas = canvasRef.current
     const ctx = canvas.getContext("2d")
     const host = canvas.parentElement
-    let W, H, running = false, visible = false, raf, resizeTimer
+    /* start visible — the hero is on screen at load; IO only pauses when scrolled away */
+    let W, H, running = false, visible = true, raf, resizeTimer
     const parts = []
     const mouse = { x: -9999, y: -9999 }
 
@@ -190,6 +283,7 @@ export function Particles() {
     const start = () => { if (!running && visible) { running = true; raf = requestAnimationFrame(tick) } }
 
     resize()
+    start()
     const io = new IntersectionObserver(en => { visible = en[en.length - 1].isIntersecting; start() })
     io.observe(host)
     const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 150) }

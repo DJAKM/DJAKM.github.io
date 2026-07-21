@@ -9,7 +9,7 @@ export const PRESETS = [
   { label: "Pink · Green", mode: "light", c1: "#ec4899", c2: "#16a34a" },
   { label: "Orange · White", mode: "light", c1: "#f97316", c2: "#0d9488" },
 ]
-const DEFAULT = { mode: "dark", c1: "#f97316", c2: "#a78bfa" }
+const DEFAULT = { mode: "dark", c1: "#facc15", c2: "#60a5fa" }
 
 /* tiny color math — everything else derives from the two picked colors */
 const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16))

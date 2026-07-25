@@ -1,0 +1,3 @@
+Compile aditya-kumar-mishra-resume.tex on Overleaf, download the PDF,
+rename it to resume.pdf, and place it in this folder.
+The site links to it at /resume.pdf (Download Resume button + header link).

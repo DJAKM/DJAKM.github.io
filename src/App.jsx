@@ -192,8 +192,16 @@ function Work() {
     <Section id="work" num="04" label="Work" title="Things I've built" variant="blur">
       <div onPointerMove={spot} className={`spot ${card} mb-6 bg-gradient-to-br from-card to-card-hi p-9 hover:border-accent/50`}>
         <span className="mb-4 inline-block rounded-full border border-accent/40 px-3 py-0.5 font-mono text-xs text-atext">FEATURED · PROFESSIONAL WORK</span>
-        <h3 className="mb-2 text-2xl font-semibold"><a href={FEATURED.url} target="_blank" rel="noopener" className="transition-colors hover:text-atext">{FEATURED.name} ↗</a></h3>
-        <p className="mb-5 max-w-[660px] text-sm text-muted">{FEATURED.blurb}</p>
+        <h3 className="text-2xl font-semibold"><a href={FEATURED.url} target="_blank" rel="noopener" className="transition-colors hover:text-atext">{FEATURED.name} ↗</a></h3>
+        <p className="mb-5 font-mono text-xs text-a2text">{FEATURED.role}</p>
+        <dl className="mb-6 max-w-[680px] space-y-3">
+          {[["The problem", FEATURED.problem], ["What I built", FEATURED.approach], ["Impact", FEATURED.impact]].map(([label, body]) => (
+            <div key={label}>
+              <dt className="font-mono text-[0.68rem] uppercase tracking-widest text-faint">{label}</dt>
+              <dd className="text-sm text-muted">{body}</dd>
+            </div>
+          ))}
+        </dl>
         <div className="mb-6 flex flex-wrap gap-4">
           {FEATURED.metrics.map(([v, l]) => (
             <div key={l} className="rounded-xl border border-line bg-glass-card px-4 py-2.5 text-xs text-muted">
@@ -201,7 +209,8 @@ function Work() {
             </div>
           ))}
         </div>
-        <ul className="mb-6 max-w-[660px] gap-x-8 sm:columns-2">
+        <p className="mb-2 font-mono text-[0.68rem] uppercase tracking-widest text-faint">Highlights</p>
+        <ul className="mb-6 max-w-[680px] gap-x-8 sm:columns-2">
           {FEATURED.features.map(f => (
             <li key={f} className="relative mb-2 break-inside-avoid pl-5 text-sm text-muted before:absolute before:left-0 before:text-xs before:text-accent before:content-['✦']">{f}</li>
           ))}
@@ -279,6 +288,7 @@ function Contact() {
         <p className="mb-8 text-muted">Whether it's a role, a freelance project, or just a chat about frontend — my inbox is always open. I usually reply within a day.</p>
         <div className="flex flex-wrap justify-center gap-4">
           <a href={`mailto:${LINKS.email}`} className="rounded-xl bg-accent px-7 py-3 font-semibold text-on-accent shadow-lg shadow-accent/30 transition hover:-translate-y-0.5">Say hello</a>
+          <a href={LINKS.resume} download className="rounded-xl border border-line px-7 py-3 font-semibold transition hover:-translate-y-0.5 hover:border-accent hover:text-atext">Download Résumé ↓</a>
           <a href={LINKS.github} target="_blank" rel="noopener" className="rounded-xl border border-line px-7 py-3 font-semibold transition hover:-translate-y-0.5 hover:border-accent hover:text-atext">GitHub</a>
           <a href={LINKS.linkedin} target="_blank" rel="noopener" className="rounded-xl border border-line px-7 py-3 font-semibold transition hover:-translate-y-0.5 hover:border-accent hover:text-atext">LinkedIn</a>
         </div>

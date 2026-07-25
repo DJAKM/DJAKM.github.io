@@ -62,6 +62,13 @@ export const JOBS = [
 export const FEATURED = {
   name: "UniversityLane.io",
   url: "https://universitylane.io",
+  role: "Sole UI/UX designer & frontend developer",
+  problem:
+    "Makunai needed a B2B platform where study-abroad partners could discover universities, check student eligibility, and manage applications across 20+ countries — starting from a blank canvas, with no existing product to build on.",
+  approach:
+    "I owned the interface end-to-end: information architecture, visual design, and the full React/Next.js implementation. The hardest pieces were a destinations system spanning 20+ countries without overwhelming the user, and a multi-step budget calculator that turns tuition, accommodation, travel, and visa costs into a single clear number.",
+  impact:
+    "The platform now serves 1,000+ certified partners and has processed 5,000+ applications — the company's flagship product and primary partner-facing surface.",
   blurb: "A full study-abroad & MBBS-abroad platform I designed from the very first screen to production — every layout, interaction, and responsive breakpoint.",
   metrics: [
     ["1,000+", "certified partners"],
@@ -133,4 +140,5 @@ export const LINKS = {
   github: "https://github.com/DJAKM",
   linkedin: "https://www.linkedin.com/in/aditya-mishra-5067b6237/",
   leetcode: "https://leetcode.com/",
+  resume: "/resume.pdf", // drop the compiled PDF into public/resume.pdf
 }
